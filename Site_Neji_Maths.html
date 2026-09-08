@@ -1,0 +1,1193 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Neji-Maths - Portail de Mathématiques</title>
+  
+  <!-- Polices Google et Icônes FontAwesome -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Outfit:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+  <style>
+    :root {
+      --primary: #1e3a8a;
+      --primary-dark: #0f172a;
+      --accent: #2563eb;
+      --accent-gold: #f59e0b;
+      --accent-synth: #059669;
+      --bg-slate: #f8fafc;
+      --card-bg: #ffffff;
+      --text-main: #1e293b;
+      --text-muted: #64748b;
+      --border-color: #e2e8f0;
+      --radius-lg: 16px;
+      --shadow-sm: 0 4px 6px -1px rgba(0,0,0,0.05);
+      --shadow-md: 0 10px 25px -5px rgba(30, 58, 138, 0.08);
+      --shadow-hover: 0 16px 28px -8px rgba(37, 99, 235, 0.16);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background-color: var(--bg-slate);
+      color: var(--text-main);
+      line-height: 1.5;
+      padding: 12px;
+    }
+
+    .container {
+      max-width: 100%;
+      margin: 0 auto;
+      padding: 0 8px;
+    }
+
+    /* Bannière Hero Principale */
+    .hero-banner {
+      background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 60%, var(--accent) 100%);
+      color: #ffffff;
+      border-radius: var(--radius-lg);
+      padding: 28px 24px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: var(--shadow-md);
+      margin-bottom: 25px;
+      display: flex;
+      align-items: center;
+      gap: 28px;
+    }
+
+    .hero-banner::after {
+      content: '∑ ∫ π √ ∞';
+      position: absolute;
+      top: 10px;
+      right: 20px;
+      font-size: 3rem;
+      opacity: 0.06;
+      font-weight: 800;
+      letter-spacing: 10px;
+      pointer-events: none;
+    }
+
+    /* Cadre Photo Rectangulaire */
+    .profile-container {
+      flex-shrink: 0;
+      position: relative;
+      z-index: 2;
+    }
+
+    .profile-img-rect {
+      width: 180px;
+      height: 240px;
+      border-radius: 14px;
+      object-fit: cover;
+      object-position: top center;
+      border: 3.5px solid #fcd34d;
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.4);
+      background-color: #ffffff;
+      display: block;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .profile-img-rect:hover {
+      transform: translateY(-3px) scale(1.02);
+      box-shadow: 0 14px 30px rgba(0, 0, 0, 0.5);
+    }
+
+    .hero-content {
+      flex-grow: 1;
+      text-align: left;
+      z-index: 2;
+    }
+
+    @media (max-width: 768px) {
+      .hero-banner {
+        flex-direction: column;
+        text-align: center;
+        padding: 24px 16px;
+      }
+      .hero-content {
+        text-align: center;
+      }
+      .profile-img-rect {
+        width: 160px;
+        height: 215px;
+      }
+    }
+
+    .badge-role {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      backdrop-filter: blur(10px);
+      padding: 5px 16px;
+      border-radius: 50px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      margin-bottom: 10px;
+      color: #f8fafc;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+
+    .highlight-name {
+      font-family: 'Outfit', sans-serif;
+      font-weight: 900;
+      font-size: 1.5rem;
+      color: #fcd34d;
+      text-shadow: 0 2px 6px rgba(0, 0, 0, 0.35);
+      letter-spacing: 0.5px;
+      display: inline-block;
+    }
+
+    .hero-title {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.9rem;
+      font-weight: 800;
+      margin-bottom: 8px;
+      letter-spacing: -0.5px;
+      line-height: 1.25;
+    }
+
+    .hero-subtitle {
+      font-size: 0.95rem;
+      color: #cbd5e1;
+      max-width: 650px;
+      margin-bottom: 14px;
+    }
+
+    .quick-stats {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    @media (max-width: 768px) {
+      .quick-stats {
+        justify-content: center;
+      }
+    }
+
+    .stat-pill {
+      background: rgba(0, 0, 0, 0.25);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 6px 14px;
+      border-radius: 10px;
+      font-size: 0.82rem;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* Titre de section */
+    .filter-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 18px;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .section-heading {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* Grille exacte à 4 colonnes sur une seule ligne */
+    .levels-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-bottom: 30px;
+    }
+
+    @media (max-width: 1200px) {
+      .levels-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 640px) {
+      .levels-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .level-card {
+      background: var(--card-bg);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border-color);
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+      transition: all 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    .level-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-hover);
+      border-color: var(--accent);
+    }
+
+    .card-top {
+      padding: 18px 16px 12px;
+      border-bottom: 1px dashed var(--border-color);
+    }
+
+    .card-badge {
+      font-size: 0.72rem;
+      padding: 3px 8px;
+      border-radius: 6px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      display: inline-block;
+      margin-bottom: 8px;
+    }
+
+    .badge-1st { background: #e0f2fe; color: #0369a1; }
+    .badge-2nd { background: #fef3c7; color: #b45309; }
+    .badge-3rd { background: #ede9fe; color: #6d28d9; }
+    .badge-bac { background: #fee2e2; color: #b91c1c; }
+
+    .card-title {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-bottom: 3px;
+    }
+
+    .card-desc {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      line-height: 1.4;
+    }
+
+    .card-body {
+      padding: 14px 14px;
+      flex-grow: 1;
+    }
+
+    .links-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .resource-link {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 8px 11px;
+      background-color: #f8fafc;
+      border-radius: 8px;
+      text-decoration: none;
+      color: var(--text-main);
+      font-size: 0.85rem;
+      font-weight: 600;
+      transition: all 0.2s;
+      border: 1px solid #f1f5f9;
+      cursor: pointer;
+    }
+
+    .resource-link:hover {
+      background-color: #eff6ff;
+      color: var(--accent);
+      border-color: #bfdbfe;
+      transform: translateX(2px);
+    }
+
+    .resource-link .right-icon {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      transition: transform 0.3s ease;
+    }
+
+    .resource-link:hover .right-icon {
+      color: var(--accent);
+    }
+
+    /* Boîte de filière rétractable */
+    .filiere-box {
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      margin-bottom: 8px;
+      overflow: hidden;
+      background: #fafafa;
+    }
+
+    .filiere-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 9px 11px;
+      background: #f1f5f9;
+      font-weight: 700;
+      font-size: 0.86rem;
+      color: var(--primary);
+      cursor: pointer;
+      user-select: none;
+      transition: background 0.2s ease, color 0.2s ease;
+    }
+
+    .filiere-header:hover {
+      background: #e2e8f0;
+      color: var(--accent);
+    }
+
+    .filiere-header .right-icon {
+      transition: transform 0.3s ease;
+      font-size: 0.78rem;
+    }
+
+    .filiere-header.active .right-icon {
+      transform: rotate(90deg);
+      color: var(--accent);
+    }
+
+    .filiere-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease-out, opacity 0.3s ease;
+      opacity: 0;
+      padding: 0 8px;
+    }
+
+    .filiere-content.active {
+      max-height: 550px;
+      opacity: 1;
+      padding: 10px 8px;
+    }
+
+    /* Accordéon / Menu déroulant pour les devoirs */
+    .ctrl-dropdown {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.35s ease-out, opacity 0.25s ease;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .ctrl-dropdown.active {
+      max-height: 250px;
+      opacity: 1;
+      pointer-events: auto;
+      margin-top: 6px;
+      margin-bottom: 6px;
+    }
+
+    .ctrl-toggle {
+      cursor: pointer;
+    }
+
+    .ctrl-toggle .right-icon {
+      transition: transform 0.3s ease;
+    }
+
+    .ctrl-toggle.active .right-icon {
+      transform: rotate(90deg);
+      color: var(--accent);
+    }
+
+    .ctrl-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 5px;
+      padding: 6px;
+      background: #ffffff;
+      border-radius: 8px;
+      border: 1px solid #e2e8f0;
+    }
+
+    .ctrl-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 6px 3px;
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-radius: 6px;
+      color: var(--primary);
+      font-size: 0.76rem;
+      font-weight: 700;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      text-align: center;
+    }
+
+    .ctrl-btn:hover {
+      background: var(--accent);
+      color: #ffffff;
+      border-color: var(--accent);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(37, 99, 235, 0.2);
+    }
+
+    /* Boutons de synthèse spécifiques en vert */
+    .synth-btn {
+      color: #065f46;
+      border-color: #a7f3d0;
+      background: #f0fdf4;
+    }
+
+    .synth-btn:hover {
+      background: var(--accent-synth) !important;
+      color: #ffffff !important;
+      border-color: var(--accent-synth) !important;
+      box-shadow: 0 4px 8px rgba(5, 150, 105, 0.2) !important;
+    }
+
+    /* Pied de page */
+    .quote-footer {
+      text-align: center;
+      padding: 20px;
+      background: #fff;
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border-color);
+      color: var(--text-muted);
+      font-size: 0.88rem;
+    }
+
+    .quote-footer strong {
+      color: var(--primary);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+
+    <!-- 1. En-tête / Bannière Principale avec Photo Rectangulaire Haute Définition -->
+    <header class="hero-banner">
+      <div class="profile-container">
+        <img src="data:image/jpeg;base64,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" alt="Prof. Neji Abdelkarim" class="profile-img-rect" />
+      </div>
+
+      <div class="hero-content">
+        <div class="badge-role">
+          <i class="fa-solid fa-graduation-cap" style="color: #fcd34d;"></i>
+          <span>Espace Pédagogique — <strong class="highlight-name">Prof. Neji Abdelkarim</strong></span>
+        </div>
+        <h1 class="hero-title">Neji-Maths — Enseignement Secondaire</h1>
+        <p class="hero-subtitle">
+          Cours détaillés, résumés, séries d'exercices d'entraînement et devoirs corrigés pour tous les niveaux du secondaire en Tunisie.
+        </p>
+
+        <div class="quick-stats">
+          <div class="stat-pill"><i class="fa-solid fa-file-pdf"></i> Devoirs de Contrôle</div>
+          <div class="stat-pill"><i class="fa-solid fa-file-shield"></i> Devoirs de Synthèse</div>
+          <div class="stat-pill"><i class="fa-solid fa-award"></i> Préparation Baccalauréat</div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Section Titre -->
+    <div class="filter-bar">
+      <h2 class="section-heading"><i class="fa-solid fa-folder-open"></i> Niveaux & Classes du Secondaire</h2>
+    </div>
+
+    <!-- Grille des 4 niveaux côte à côte (1 seule ligne) -->
+    <div class="levels-grid">
+
+      <!-- ================= 1ère Année Secondaire ================= -->
+      <div class="level-card">
+        <div class="card-top">
+          <span class="card-badge badge-1st">Tronc Commun</span>
+          <h3 class="card-title">1ère Année</h3>
+          <p class="card-desc">Analyse, trigonométrie et géométrie</p>
+        </div>
+        <div class="card-body">
+          <ul class="links-list">
+            <li>
+              <div class="resource-link ctrl-toggle" onclick="toggleCtrl('c_1ere')">
+                <span><i class="fa-solid fa-file-lines text-muted"></i> Devoirs de Contrôle</span>
+                <i class="fa-solid fa-chevron-right right-icon"></i>
+              </div>
+              <div id="c_1ere" class="ctrl-dropdown">
+                <div class="ctrl-grid">
+                  <a href="https://drive.google.com/drive/folders/1fPXAdLCEZisxlhNifoGuMBcdne7M7yND?usp=sharing" class="ctrl-btn">Contrôle 1</a>
+                  <a href="https://drive.google.com/drive/folders/1Xbow6Xvir7GktBd1tWLxnZfbJ31sMTVF?usp=sharing" class="ctrl-btn">Contrôle 2</a>
+                  <a href="https://drive.google.com/drive/folders/1s5simzybHAR5zh2rbTnesfb65hCI-OQu?usp=sharing" class="ctrl-btn">Contrôle 3</a>
+                  <a href="https://drive.google.com/drive/folders/1ukfjt0-jufhV8EH9XVok_uGQ--8fIed1?usp=sharing" class="ctrl-btn">Contrôle 4</a>
+                  <a href="https://drive.google.com/drive/folders/1KfeJVigvuSfSxIRonu8aRS0hciBGr8Zp?usp=sharing" class="ctrl-btn">Contrôle 5</a>
+                  <a href="https://drive.google.com/drive/folders/17cCEACgMeB4n08HRIeoqyJQEqP5DVIKd?usp=sharing" class="ctrl-btn">Contrôle 6</a>
+                </div>
+              </div>
+            </li>
+            <li>
+              <div class="resource-link ctrl-toggle" onclick="toggleCtrl('s_1ere')">
+                <span><i class="fa-solid fa-file-shield text-muted"></i> Devoirs de Synthèse</span>
+                <i class="fa-solid fa-chevron-right right-icon"></i>
+              </div>
+              <div id="s_1ere" class="ctrl-dropdown">
+                <div class="ctrl-grid">
+                  <a href="https://drive.google.com/drive/folders/1hi7mvVEPlLf4_wO3dVPUrn5h8r6LDVC2?usp=sharing" class="ctrl-btn synth-btn">Synthèse 1</a>
+                  <a href="https://drive.google.com/drive/folders/12xxq3kFELUceedb2Cie0enQeWHMWZMK5?usp=sharing" class="ctrl-btn synth-btn">Synthèse 2</a>
+                  <a href="https://drive.google.com/drive/folders/1HUhqbuA1PAsd5WjML0of9dCoaTa4-uew?usp=sharing" class="ctrl-btn synth-btn">Synthèse 3</a>
+                </div>
+              </div>
+            </li>
+            <li>
+              <a href="https://drive.google.com/drive/folders/1sDJQjqWgjX9-gi0oHb-3ZwAjlZgFV7J9?usp=sharing" class="resource-link">
+                <span><i class="fa-solid fa-book-open text-muted"></i> Séries & Cours</span>
+                <i class="fa-solid fa-arrow-right right-icon"></i>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- ================= 2ème Année (Sciences, Info, Économie) ================= -->
+      <div class="level-card">
+        <div class="card-top">
+          <span class="card-badge badge-2nd">2ème Année</span>
+          <h3 class="card-title">2ème Année</h3>
+          <p class="card-desc">Filières Sciences, Info et Économie</p>
+        </div>
+        <div class="card-body">
+          
+          <!-- Sous-bloc 2ème Sciences -->
+          <div class="filiere-box">
+            <div class="filiere-header" onclick="toggleCtrl('fil_2sc')">
+              <span><i class="fa-solid fa-atom"></i> 2ème Sciences</span>
+              <i class="fa-solid fa-chevron-right right-icon"></i>
+            </div>
+            <div id="fil_2sc" class="filiere-content">
+              <ul class="links-list">
+                <li>
+                  <div class="resource-link ctrl-toggle" onclick="toggleCtrl('c_2sc')">
+                    <span><i class="fa-solid fa-file-lines text-muted"></i> Contrôles (1 à 3)</span>
+                    <i class="fa-solid fa-chevron-right right-icon"></i>
+                  </div>
+                  <div id="c_2sc" class="ctrl-dropdown">
+                    <div class="ctrl-grid">
+                      <a href="https://drive.google.com/drive/folders/1cRm6QbCuIhGtFOw8-bOjJVGu_yUGQPhF?usp=sharing" class="ctrl-btn">Contrôle 1</a>
+                      <a href="https://drive.google.com/drive/folders/1Awk0sEcO1udk0wsJMPjsK54fGN8hQT4f?usp=sharing" class="ctrl-btn">Contrôle 2</a>
+                      <a href="https://drive.google.com/drive/folders/1NY45zN3ZmaEiI415fhxwsW1jaqFY_DmO?usp=sharing" class="ctrl-btn">Contrôle 3</a>
+                      <a href="https://drive.google.com/drive/folders/1r-qfBs1-ilX0vQ6mRf8m6SQuZ31r8G8L?usp=sharing" class="ctrl-btn">Contrôle 4</a>
+                      <a href="https://drive.google.com/drive/folders/1iaZosQepCzm2AZaXliGdmnxNyd5eB0og?usp=sharing" class="ctrl-btn">Contrôle 5</a>
+                      <a href="https://drive.google.com/drive/folders/1BXg30tcoPOJp7dTA3dQhWA6Myvi3yXp-?usp=sharing" class="ctrl-btn">Contrôle 6</a>
+                    </div>
+                  </div>
+                </li>
+                <li>
+                  <div class="resource-link ctrl-toggle" onclick="toggleCtrl('s_2sc')">
+                    <span><i class="fa-solid fa-file-shield text-muted"></i> Synthèses (1 à 3)</span>
+                    <i class="fa-solid fa-chevron-right right-icon"></i>
+                  </div>
+                  <div id="s_2sc" class="ctrl-dropdown">
+                    <div class="ctrl-grid">
+                      <a href="https://drive.google.com/drive/folders/1ADgiXNYWCDnQt95d1OH86WKbeP_boQxe?usp=sharing" class="ctrl-btn synth-btn">Synthèse 1</a>
+                      <a href="https://drive.google.com/drive/folders/1NhkFNdu1C7CZ0TndarwZg9eUlckLDS58?usp=sharing" class="ctrl-btn synth-btn">Synthèse 2</a>
+                      <a href="https://drive.google.com/drive/folders/1ZEhvbmsEvJOzILzoSrDQA76WvMjKb9z_?usp=sharing" class="ctrl-btn synth-btn">Synthèse 3</a>
+                    </div>
+                  </div>
+                </li>
+                <li>
+                  <a href="https://drive.google.com/drive/folders/1h3rKNvsZA7vjk-Gx-0GxdQuZ2CDRHLCK?usp=sharing" class="resource-link">
+                    <span><i class="fa-solid fa-book-open text-muted"></i> Séries & Cours</span>
+                    <i class="fa-solid fa-arrow-right right-icon"></i>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Sous-bloc 2ème Sciences de l'Informatique -->
+          <div class="filiere-box">
+            <div class="filiere-header" onclick="toggleCtrl('fil_2info')">
+              <span><i class="fa-solid fa-code"></i> 2ème Sc. Info</span>
+              <i class="fa-solid fa-chevron-right right-icon"></i>
+            </div>
+            <div id="fil_2info" class="filiere-content">
+              <ul class="links-list">
+                <li>
+                  <div class="resource-link ctrl-toggle" onclick="toggleCtrl('c_2info')">
+                    <span><i class="fa-solid fa-file-lines text-muted"></i> Contrôles (1 à 3)</span>
+                    <i class="fa-solid fa-chevron-right right-icon"></i>
+                  </div>
+                  <div id="c_2info" class="ctrl-dropdown">
+                    <div class="ctrl-grid">
+                       <a href="https://drive.google.com/drive/folders/1LP7yDCILSnEZRgelBOC38NrfPyxuSanR?usp=sharing" class="ctrl-btn">Contrôle 1</a>
+                       <a href="https://drive.google.com/drive/folders/175f6UPkJYpBpAFmsOaemyFjzT5k1H-Pf?usp=sharing" class="ctrl-btn">Contrôle 2</a>
+                       <a href="https://drive.google.com/drive/folders/1Iq1NW_ngnfZDmoqTyb8jcLH2VgbAOyLY?usp=sharing" class="ctrl-btn">Contrôle 3</a>
+                       <a href="https://drive.google.com/drive/folders/1yHZph2PD15dgwJm9HfAOHQ3KwvBMXOhD?usp=sharing" class="ctrl-btn">Contrôle 4</a>
+                       <a href="https://drive.google.com/drive/folders/1zQIUFYgmQlfqFUMOsoKBNtnK4Mfpm_Df?usp=sharing" class="ctrl-btn">Contrôle 5</a>
+                       <a href="https://drive.google.com/drive/folders/15C9ULCyUw6GGvaUlf9sP60vvouLjoV8N?usp=sharing" class="ctrl-btn">Contrôle 6</a>
+                    </div>
+                  </div>
+                </li>
+                <li>
+                  <div class="resource-link ctrl-toggle" onclick="toggleCtrl('s_2info')">
+                    <span><i class="fa-solid fa-file-shield text-muted"></i> Synthèses (1 à 3)</span>
+                    <i class="fa-solid fa-chevron-right right-icon"></i>
+                  </div>
+                  <div id="s_2info" class="ctrl-dropdown">
+                    <div class="ctrl-grid">
+                      <a href="https://drive.google.com/drive/folders/11NAeXLPcqL5KluHPht2wsDGOyQkDN3yk?usp=sharing" class="ctrl-btn synth-btn">Synthèse 1</a>
+                      <a href="https://drive.google.com/drive/folders/1Zst6PIkwz8FqfyYAIVwRggHR9dUCxW_m?usp=sharing" class="ctrl-btn synth-btn">Synthèse 2</a>
+                      <a href="https://drive.google.com/drive/folders/1OkNIAyfKEmotRbsvdUnMCRyVTvoSnoRf?usp=sharing" class="ctrl-btn synth-btn">Synthèse 3</a>
+                    </div>
+                  </div>
+                </li>
+                <li>
+                  <a href="https://drive.google.com/drive/folders/1Ik2134M0v1TReBfnOaLn1G-IIEk6LT0L?usp=sharing" class="resource-link">
+                    <span><i class="fa-solid fa-book-open text-muted"></i> Séries & Cours</span>
+                    <i class="fa-solid fa-arrow-right right-icon"></i>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Sous-bloc 2ème Économie & Gestion -->
+          <div class="filiere-box">
+            <div class="filiere-header" onclick="toggleCtrl('fil_2eco')">
+              <span><i class="fa-solid fa-chart-pie"></i> 2ème Éco & Gestion</span>
+              <i class="fa-solid fa-chevron-right right-icon"></i>
+            </div>
+            <div id="fil_2eco" class="filiere-content">
+              <ul class="links-list">
+                <li>
+                  <div class="resource-link ctrl-toggle" onclick="toggleCtrl('c_2eco')">
+                    <span><i class="fa-solid fa-file-lines text-muted"></i> Contrôles (1 à 3)</span>
+                    <i class="fa-solid fa-chevron-right right-icon"></i>
+                  </div>
+                  <div id="c_2eco" class="ctrl-dropdown">
+                    <div class="ctrl-grid">
+                      <a href="https://drive.google.com/drive/folders/1zYV7cVuy7aJWWm-q7OOizEXaC0hMTD9L?usp=sharing" class="ctrl-btn">Contrôle 1</a>
+                      <a href="https://drive.google.com/drive/folders/1Lzf876TMlh6FXFzawsariPS84X94VUCT?usp=sharing" class="ctrl-btn">Contrôle 2</a>
+                      <a href="https://drive.google.com/drive/folders/1yFryx4BIBQygybIcm--oIi57v2xe-rlK?usp=sharing" class="ctrl-btn">Contrôle 3</a>
+                    </div>
+                  </div>
+                </li>
+                <li>
+                  <div class="resource-link ctrl-toggle" onclick="toggleCtrl('s_2eco')">
+                    <span><i class="fa-solid fa-file-shield text-muted"></i> Synthèses (1 à 3)</span>
+                    <i class="fa-solid fa-chevron-right right-icon"></i>
+                  </div>
+                  <div id="s_2eco" class="ctrl-dropdown">
+                    <div class="ctrl-grid">
+                      <a href="https://drive.google.com/drive/folders/1jL45RqaJyXMcf8OoxM4z4yJfPVeg7vrG?usp=sharing" class="ctrl-btn synth-btn">Synthèse 1</a>
+                      <a href="https://drive.google.com/drive/folders/13_XKNR7SQYKvgHAMIyiBLjpdnDQmOkBv?usp=sharing" class="ctrl-btn synth-btn">Synthèse 2</a>
+                      <a href="https://drive.google.com/drive/folders/1-cwe0u77CXZKE_ZNoKpo-gEDzlQHEHUu?usp=sharing" class="ctrl-btn synth-btn">Synthèse 3</a>
+                    </div>
+                  </div>
+                </li>
+                <li>
+                  <a href="https://drive.google.com/drive/folders/1tW9Y7L5TF8vOv0MO8jjqy8IdbByDiWtP?usp=sharing" class="resource-link">
+                    <span><i class="fa-solid fa-book-open text-muted"></i> Séries & Cours</span>
+                    <i class="fa-solid fa-arrow-right right-icon"></i>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- ================= 3ème Année (Maths, Sciences, Technique, Info, Économie) ================= -->
+      <div class="level-card">
+        <div class="card-top">
+          <span class="card-badge badge-3rd">3ème Année</span>
+          <h3 class="card-title">3ème Année</h3>
+          <p class="card-desc">Maths, Sciences, Tech, Info, Éco</p>
+        </div>
+        <div class="card-body">
+          
+          <!-- 3ème Math -->
+          <div class="filiere-box">
+            <div class="filiere-header" onclick="toggleCtrl('fil_3math')">
+              <span><i class="fa-solid fa-square-root-variable"></i> 3ème Math</span>
+              <i class="fa-solid fa-chevron-right right-icon"></i>
+            </div>
+            <div id="fil_3math" class="filiere-content">
+              <ul class="links-list">
+                <li>
+                  <div class="resource-link ctrl-toggle" onclick="toggleCtrl('c_3math')">
+                    <span><i class="fa-solid fa-file-lines text-muted"></i> Contrôles (1 à 3)</span>
+                    <i class="fa-solid fa-chevron-right right-icon"></i>
+                  </div>
+                  <div id="c_3math" class="ctrl-dropdown">
+                    <div class="ctrl-grid">
+                      <a href="https://drive.google.com/drive/folders/1dL9gMc5OTdbxdiDL5NsosPULFBAm8GJy?usp=sharing" class="ctrl-btn">Contrôle 1</a>
+                      <a href="https://drive.google.com/drive/folders/1iFeVfCC_W0Ga2gRDr_KOS2OPZ3oHSIda?usp=sharing" class="ctrl-btn">Contrôle 2</a>
+                      <a href="https://drive.google.com/drive/folders/1Y_FQ88d6uFODmECC79L9lxjPT0-zqJYR?usp=sharing" class="ctrl-btn">Contrôle 3</a>
+                    </div>
+                  </div>
+                </li>
+                <li>
+                  <div class="resource-link ctrl-toggle" onclick="toggleCtrl('s_3math')">
+                    <span><i class="fa-solid fa-file-shield text-muted"></i> Synthèses (1 à 3)</span>
+                    <i class="fa-solid fa-chevron-right right-icon"></i>
+                  </div>
+                  <div id="s_3math" class="ctrl-dropdown">
+                    <div class="ctrl-grid">
+                      <a href="https://drive.google.com/drive/folders/1qChixCA72NqWjEAo5mTeAQHgZ_heZe5k?usp=sharing" class="ctrl-btn synth-btn">Synthèse 1</a>
+                      <a href="https://drive.google.com/drive/folders/1Fvq4HkPOZvv8obPWG9iFMJ3LXGFI6VJ3?usp=sharing" class="ctrl-btn synth-btn">Synthèse 2</a>
+                      <a href="https://drive.google.com/drive/folders/1wSpkL2qJeEeiKGsFMu5BUbni5iXCcMN_?usp=sharing" class="ctrl-btn synth-btn">Synthèse 3</a>
+                    </div>
+                  </div>
+                </li>
+                <li>
+                  <a href="https://drive.google.com/drive/folders/1Y-qn5MCubWbBb-tgD6QfwvjLPiOo-7rt?usp=sharing" class="resource-link">
+                    <span><i class="fa-solid fa-book-open text-muted"></i> Séries & Cours</span>
+                    <i class="fa-solid fa-arrow-right right-icon"></i>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- 3ème Sciences Exp. -->
+          <div class="filiere-box">
+            <div class="filiere-header" onclick="toggleCtrl('fil_3sc')">
+              <span><i class="fa-solid fa-dna"></i> 3ème Sciences</span>
+              <i class="fa-solid fa-chevron-right right-icon"></i>
+            </div>
+            <div id="fil_3sc" class="filiere-content">
+              <ul class="links-list">
+                <li>
+                  <div class="resource-link ctrl-toggle" onclick="toggleCtrl('c_3sc')">
+                    <span><i class="fa-solid fa-file-lines text-muted"></i> Contrôles (1 à 3)</span>
+                    <i class="fa-solid fa-chevron-right right-icon"></i>
+                  </div>
+                  <div id="c_3sc" class="ctrl-dropdown">
+                    <div class="ctrl-grid">
+                      <a href="https://drive.google.com/drive/folders/1ABUcd6RMiXUm95jzIhJLMGs_Di9Lrk6z?usp=sharing" class="ctrl-btn">Contrôle 1</a>
+                      <a href="https://drive.google.com/drive/folders/1Ml1A0B2HRGeF6XZG4XZCJXEdP_bMxTx-?usp=sharing" class="ctrl-btn">Contrôle 2</a>
+                      <a href="https://drive.google.com/drive/folders/1KcX_H63kOYMSKe5AjzSCCDn5RWacu3Fm?usp=sharing" class="ctrl-btn">Contrôle 3</a>
+                    </div>
+                  </div>
+                </li>
+                <li>
+                  <div class="resource-link ctrl-toggle" onclick="toggleCtrl('s_3sc')">
+                    <span><i class="fa-solid fa-file-shield text-muted"></i> Synthèses (1 à 3)</span>
+                    <i class="fa-solid fa-chevron-right right-icon"></i>
+                  </div>
+                  <div id="s_3sc" class="ctrl-dropdown">
+                    <div class="ctrl-grid">
+                      <a href="https://drive.google.com/drive/folders/1v0AY4aCWsvG5tf-3vKHc6R7Tajp3pkdC?usp=sharing" class="ctrl-btn synth-btn">Synthèse 1</a>
+                      <a href="https://drive.google.com/drive/folders/1lqrB0uiAw4dkjjFjOFWtCNdBfxHWYSbE?usp=sharing" class="ctrl-btn synth-btn">Synthèse 2</a>
+                      <a href="https://drive.google.com/drive/folders/1HE9hkOh7b-ndjyCG-hmKl4tZWYYvrdq4?usp=sharing" class="ctrl-btn synth-btn">Synthèse 3</a>
+                    </div>
+                  </div>
+                </li>
+                <li>
+                  <a href="https://drive.google.com/drive/folders/1cP0lXv7lTzGWRLlky_EnxnrPEMJt6z_J?usp=sharing" class="resource-link">
+                    <span><i class="fa-solid fa-book-open text-muted"></i> Séries & Cours</span>
+                    <i class="fa-solid fa-arrow-right right-icon"></i>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- 3ème Technique -->
+          <div class="filiere-box">
+            <div class="filiere-header" onclick="toggleCtrl('fil_3tech')">
+              <span><i class="fa-solid fa-gears"></i> 3ème Technique</span>
+              <i class="fa-solid fa-chevron-right right-icon"></i>
+            </div>
+            <div id="fil_3tech" class="filiere-content">
+              <ul class="links-list">
+                <li>
+                  <div class="resource-link ctrl-toggle" onclick="toggleCtrl('c_3tech')">
+                    <span><i class="fa-solid fa-file-lines text-muted"></i> Contrôles (1 à 3)</span>
+                    <i class="fa-solid fa-chevron-right right-icon"></i>
+                  </div>
+                  <div id="c_3tech" class="ctrl-dropdown">
+                    <div class="ctrl-grid">
+                      <a href="https://drive.google.com/drive/folders/1VCyXIcxWkIV8elCyapJ7m_DA1DCLhl6o?usp=sharing" class="ctrl-btn">Contrôle 1</a>
+                      <a href="https://drive.google.com/drive/folders/1y6szDZ6fG0s6TfLIroSXRjE3ZiY5r86g?usp=sharing" class="ctrl-btn">Contrôle 2</a>
+                      <a href="https://drive.google.com/drive/folders/1xnxleCYGeO8FGSGRRq5cvyS4LC7fzz0f?usp=sharing" class="ctrl-btn">Contrôle 3</a>
+                    </div>
+                  </div>
+                </li>
+                <li>
+                  <div class="resource-link ctrl-toggle" onclick="toggleCtrl('s_3tech')">
+                    <span><i class="fa-solid fa-file-shield text-muted"></i> Synthèses (1 à 3)</span>
+                    <i class="fa-solid fa-chevron-right right-icon"></i>
+                  </div>
+                  <div id="s_3tech" class="ctrl-dropdown">
+                    <div class="ctrl-grid">
+                      <a href="https://drive.google.com/drive/folders/1qoJ0pXTaM4Dmyl7y57TKIcYalerkOEjd?usp=sharing" class="ctrl-btn synth-btn">Synthèse 1</a>
+                      <a href="https://drive.google.com/drive/folders/1Q622Si9jgCF4thzkWXnsvg54im9rKVi4?usp=sharing" class="ctrl-btn synth-btn">Synthèse 2</a>
+                      <a href="https://drive.google.com/drive/folders/1Hq97SyJoEHbe9SZxfq8SHAfSKeiUAcoy?usp=sharing" class="ctrl-btn synth-btn">Synthèse 3</a>
+                    </div>
+                  </div>
+                </li>
+                <li>
+                  <a href="https://drive.google.com/drive/folders/1T_sf4b-_UzC13NKytA_HtsvwBPyyowH-?usp=sharing" class="resource-link">
+                    <span><i class="fa-solid fa-book-open text-muted"></i> Séries & Cours</span>
+                    <i class="fa-solid fa-arrow-right right-icon"></i>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- 3ème Informatique -->
+          <div class="filiere-box">
+            <div class="filiere-header" onclick="toggleCtrl('fil_3info')">
+              <span><i class="fa-solid fa-laptop-code"></i> 3ème Sc. Info</span>
+              <i class="fa-solid fa-chevron-right right-icon"></i>
+            </div>
+            <div id="fil_3info" class="filiere-content">
+              <ul class="links-list">
+                <li>
+                  <div class="resource-link ctrl-toggle" onclick="toggleCtrl('c_3info')">
+                    <span><i class="fa-solid fa-file-lines text-muted"></i> Contrôles (1 à 3)</span>
+                    <i class="fa-solid fa-chevron-right right-icon"></i>
+                  </div>
+                  <div id="c_3info" class="ctrl-dropdown">
+                    <div class="ctrl-grid">
+                      <a href="https://drive.google.com/drive/folders/1JJvXF7ZbZJraV5C95F7F_kzvYdHhUiO_?usp=sharing" class="ctrl-btn">Contrôle 1</a>
+                      <a href="https://drive.google.com/drive/folders/1H2FZjRKawfFEiW6mJyL-xl2BIumkbVYU?usp=sharing" class="ctrl-btn">Contrôle 2</a>
+                      <a href="https://drive.google.com/drive/folders/1J9z2sHNxZHjx06iQEXF7dSLyYz8zAbZT?usp=sharing" class="ctrl-btn">Contrôle 3</a>
+                    </div>
+                  </div>
+                </li>
+                <li>
+                  <div class="resource-link ctrl-toggle" onclick="toggleCtrl('s_3info')">
+                    <span><i class="fa-solid fa-file-shield text-muted"></i> Synthèses (1 à 3)</span>
+                    <i class="fa-solid fa-chevron-right right-icon"></i>
+                  </div>
+                  <div id="s_3info" class="ctrl-dropdown">
+                    <div class="ctrl-grid">
+                      <a href="https://drive.google.com/drive/folders/13TMJgiwN5OoiBqInx2g9-m1HEzDDdnBC?usp=sharing" class="ctrl-btn synth-btn">Synthèse 1</a>
+                      <a href="https://drive.google.com/drive/folders/1k7Yk7trYXV2qsrSvgsLb4UVePveKwy62?usp=sharing" class="ctrl-btn synth-btn">Synthèse 2</a>
+                      <a href="https://drive.google.com/drive/folders/1ulsyfoBU_T6zyrl_94RgxDV-Uf4H0CTv?usp=sharing" class="ctrl-btn synth-btn">Synthèse 3</a>
+                    </div>
+                  </div>
+                </li>
+                <li>
+                  <a href="#" class="resource-link">
+                    <span><i class="fa-solid fa-book-open text-muted"></i> Séries & Cours</span>
+                    <i class="fa-solid fa-arrow-right right-icon"></i>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- 3ème Économie & Gestion -->
+          <div class="filiere-box">
+            <div class="filiere-header" onclick="toggleCtrl('fil_3eco')">
+              <span><i class="fa-solid fa-chart-pie"></i> 3ème Éco & Gestion</span>
+              <i class="fa-solid fa-chevron-right right-icon"></i>
+            </div>
+            <div id="fil_3eco" class="filiere-content">
+              <ul class="links-list">
+                <li>
+                  <div class="resource-link ctrl-toggle" onclick="toggleCtrl('c_3eco')">
+                    <span><i class="fa-solid fa-file-lines text-muted"></i> Contrôles (1 à 3)</span>
+                    <i class="fa-solid fa-chevron-right right-icon"></i>
+                  </div>
+                  <div id="c_3eco" class="ctrl-dropdown">
+                    <div class="ctrl-grid">
+                      <a href="https://drive.google.com/drive/folders/1sr5E3DHl8eygwfPgWphmGt40tHFNJmfh?usp=sharing" class="ctrl-btn">Contrôle 1</a>
+                      <a href="https://drive.google.com/drive/folders/1TokvqvsUgShI2xicEM_I4SKNG_4ZUGbi?usp=sharing" class="ctrl-btn">Contrôle 2</a>
+                      <a href="https://drive.google.com/drive/folders/1XDf2aaDz1hrrVnGYbK6oZK1AkDblRIeY?usp=sharing" class="ctrl-btn">Contrôle 3</a>
+                    </div>
+                  </div>
+                </li>
+                <li>
+                  <div class="resource-link ctrl-toggle" onclick="toggleCtrl('s_3eco')">
+                    <span><i class="fa-solid fa-file-shield text-muted"></i> Synthèses (1 à 3)</span>
+                    <i class="fa-solid fa-chevron-right right-icon"></i>
+                  </div>
+                  <div id="s_3eco" class="ctrl-dropdown">
+                    <div class="ctrl-grid">
+                      <a href="https://drive.google.com/drive/folders/1ZpdWwdeGeiWS161J0I3IqvvtBjXl_17J?usp=sharing" class="ctrl-btn synth-btn">Synthèse 1</a>
+                      <a href="https://drive.google.com/drive/folders/1QNQdcC545yedwP2KF0qeXcctLTptbPh5?usp=sharing" class="ctrl-btn synth-btn">Synthèse 2</a>
+                      <a href="https://drive.google.com/drive/folders/1S45FuAdqUdqU7ZQoYymwYbwxPBuru9pb?usp=sharing" class="ctrl-btn synth-btn">Synthèse 3</a>
+                    </div>
+                  </div>
+                </li>
+                <li>
+                  <a href="#" class="resource-link">
+                    <span><i class="fa-solid fa-book-open text-muted"></i> Séries & Cours</span>
+                    <i class="fa-solid fa-arrow-right right-icon"></i>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- ================= 4ème Année - Baccalauréat ================= -->
+      <div class="level-card">
+        <div class="card-top">
+          <span class="card-badge badge-bac">Baccalauréat</span>
+          <h3 class="card-title">Baccalauréat</h3>
+          <p class="card-desc">Maths, Sciences, Tech, Info, Éco</p>
+        </div>
+        <div class="card-body">
+          
+          <!-- Bac Maths -->
+          <div class="filiere-box">
+            <div class="filiere-header" onclick="toggleCtrl('fil_bac_m')">
+              <span><i class="fa-solid fa-square-root-variable"></i> Bac Math</span>
+              <i class="fa-solid fa-chevron-right right-icon"></i>
+            </div>
+            <div id="fil_bac_m" class="filiere-content">
+              <ul class="links-list">
+                <li>
+                  <div class="resource-link ctrl-toggle" onclick="toggleCtrl('c_bac_m')">
+                    <span><i class="fa-solid fa-file-lines text-muted"></i> Contrôles (1 à 3)</span>
+                    <i class="fa-solid fa-chevron-right right-icon"></i>
+                  </div>
+                  <div id="c_bac_m" class="ctrl-dropdown">
+                    <div class="ctrl-grid">
+                      <a href="https://drive.google.com/drive/folders/10veXgaEQAERYZSBnj1VsN4qBELtqumG0?usp=sharing" class="ctrl-btn">Contrôle 1</a>
+                      <a href="https://drive.google.com/drive/folders/1XI8z2Tj-5Vr69Zohn9eI7DrTkFVGyQQo?usp=sharing" class="ctrl-btn">Contrôle 2</a>
+                      <a href="https://drive.google.com/drive/folders/1VB8jy-XovHvNMA-xRMLYoxzym01iRTsD?usp=sharing" class="ctrl-btn">Contrôle 3</a>
+                    </div>
+                  </div>
+                </li>
+                <li>
+                  <div class="resource-link ctrl-toggle" onclick="toggleCtrl('s_bac_m')">
+                    <span><i class="fa-solid fa-file-shield text-muted"></i> Synthèses / Blanc</span>
+                    <i class="fa-solid fa-chevron-right right-icon"></i>
+                  </div>
+                  <div id="s_bac_m" class="ctrl-dropdown">
+                    <div class="ctrl-grid">
+                      <a href="https://drive.google.com/drive/folders/1ejDCqVua3dIfKNcbkuEAcQW3Vei8gqDX?usp=sharing" class="ctrl-btn synth-btn">Synthèse 1</a>
+                      <a href="https://drive.google.com/drive/folders/1_Jf_B9231bEk-9q133nr8N8dKFVXrbfQ?usp=sharing" class="ctrl-btn synth-btn">Synthèse 2</a>
+                      <a href="https://drive.google.com/drive/folders/1gg878tZFVJoi3FPczlQus4lggh5SF8Uv?usp=sharing" class="ctrl-btn synth-btn">Bac Blanc</a>
+                    </div>
+                  </div>
+                </li>
+                <li>
+                  <a href="#" class="resource-link">
+                    <span><i class="fa-solid fa-award text-muted"></i> Annales & Séries</span>
+                    <i class="fa-solid fa-arrow-right right-icon"></i>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Bac Sciences Exp. -->
+          <div class="filiere-box">
+            <div class="filiere-header" onclick="toggleCtrl('fil_bac_sc')">
+              <span><i class="fa-solid fa-flask-vial"></i> Bac Sciences</span>
+              <i class="fa-solid fa-chevron-right right-icon"></i>
+            </div>
+            <div id="fil_bac_sc" class="filiere-content">
+              <ul class="links-list">
+                <li>
+                  <div class="resource-link ctrl-toggle" onclick="toggleCtrl('c_bac_sc')">
+                    <span><i class="fa-solid fa-file-lines text-muted"></i> Contrôles (1 à 3)</span>
+                    <i class="fa-solid fa-chevron-right right-icon"></i>
+                  </div>
+                  <div id="c_bac_sc" class="ctrl-dropdown">
+                    <div class="ctrl-grid">
+                      <a href="https://drive.google.com/drive/folders/1REGf3W3I4-O9oCOl5b7rf4hZh07xb26R?usp=sharing" class="ctrl-btn">Contrôle 1</a>
+                      <a href="https://drive.google.com/drive/folders/128abhrSjzW-yqqjJYlBdsEu1wFyzWm-u?usp=sharing" class="ctrl-btn">Contrôle 2</a>
+                      <a href="https://drive.google.com/drive/folders/1Sh-4603dOw5XZ5744ex7q-d91-O7IOT3?usp=sharing" class="ctrl-btn">Contrôle 3</a>
+                    </div>
+                  </div>
+                </li>
+                <li>
+                  <div class="resource-link ctrl-toggle" onclick="toggleCtrl('s_bac_sc')">
+                    <span><i class="fa-solid fa-file-shield text-muted"></i> Synthèses / Blanc</span>
+                    <i class="fa-solid fa-chevron-right right-icon"></i>
+                  </div>
+                  <div id="s_bac_sc" class="ctrl-dropdown">
+                    <div class="ctrl-grid">
+                      <a href="https://drive.google.com/drive/folders/10VSHSwxgoyYJFxVqS3YbNTPDOXJHxOD-?usp=sharing" class="ctrl-btn synth-btn">Synthèse 1</a>
+                      <a href="https://drive.google.com/drive/folders/1eSXnignlBmUjCgIagLh3N6WjWpbZr0sp?usp=sharing" class="ctrl-btn synth-btn">Synthèse 2</a>
+                      <a href="https://drive.google.com/drive/folders/1IfML_vy7l7XXltGa6F3AFK8XlXQil6JD?usp=sharing" class="ctrl-btn synth-btn">Bac Blanc</a>
+                    </div>
+                  </div>
+                </li>
+                <li>
+                  <a href="#" class="resource-link">
+                    <span><i class="fa-solid fa-award text-muted"></i> Annales & Séries</span>
+                    <i class="fa-solid fa-arrow-right right-icon"></i>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Bac Technique -->
+          <div class="filiere-box">
+            <div class="filiere-header" onclick="toggleCtrl('fil_bac_tech')">
+              <span><i class="fa-solid fa-microchip"></i> Bac Technique</span>
+              <i class="fa-solid fa-chevron-right right-icon"></i>
+            </div>
+            <div id="fil_bac_tech" class="filiere-content">
+              <ul class="links-list">
+                <li>
+                  <div class="resource-link ctrl-toggle" onclick="toggleCtrl('c_bac_tech')">
+                    <span><i class="fa-solid fa-file-lines text-muted"></i> Contrôles (1 à 3)</span>
+                    <i class="fa-solid fa-chevron-right right-icon"></i>
+                  </div>
+                  <div id="c_bac_tech" class="ctrl-dropdown">
+                    <div class="ctrl-grid">
+                      <a href="#" class="ctrl-btn">Contrôle 1</a>
+                      <a href="#" class="ctrl-btn">Contrôle 2</a>
+                      <a href="#" class="ctrl-btn">Contrôle 3</a>
+                    </div>
+                  </div>
+                </li>
+                <li>
+                  <div class="resource-link ctrl-toggle" onclick="toggleCtrl('s_bac_tech')">
+                    <span><i class="fa-solid fa-file-shield text-muted"></i> Synthèses / Blanc</span>
+                    <i class="fa-solid fa-chevron-right right-icon"></i>
+                  </div>
+                  <div id="s_bac_tech" class="ctrl-dropdown">
+                    <div class="ctrl-grid">
+                      <a href="#" class="ctrl-btn synth-btn">Synthèse 1</a>
+                      <a href="#" class="ctrl-btn synth-btn">Synthèse 2</a>
+                      <a href="#" class="ctrl-btn synth-btn">Bac Blanc</a>
+                    </div>
+                  </div>
+                </li>
+                <li>
+                  <a href="#" class="resource-link">
+                    <span><i class="fa-solid fa-award text-muted"></i> Annales & Séries</span>
+                    <i class="fa-solid fa-arrow-right right-icon"></i>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Bac Sciences de l'Informatique -->
+          <div class="filiere-box">
+            <div class="filiere-header" onclick="toggleCtrl('fil_bac_info')">
+              <span><i class="fa-solid fa-laptop-code"></i> Bac Sc. Info</span>
+              <i class="fa-solid fa-chevron-right right-icon"></i>
+            </div>
+            <div id="fil_bac_info" class="filiere-content">
+              <ul class="links-list">
+                <li>
+                  <div class="resource-link ctrl-toggle" onclick="toggleCtrl('c_bac_info')">
+                    <span><i class="fa-solid fa-file-lines text-muted"></i> Contrôles (1 à 3)</span>
+                    <i class="fa-solid fa-chevron-right right-icon"></i>
+                  </div>
+                  <div id="c_bac_info" class="ctrl-dropdown">
+                    <div class="ctrl-grid">
+                      <a href="https://drive.google.com/drive/folders/1w2CPT38H_JpQmXTL2DTG0DtZ64DsMR9S?usp=sharing" class="ctrl-btn">Contrôle 1</a>
+                      <a href="https://drive.google.com/drive/folders/1mfo4wreYLHaRFfE39JsqFkXeXSXFHQwG?usp=sharing" class="ctrl-btn">Contrôle 2</a>
+                      <a href="https://drive.google.com/drive/folders/1PAayCU92_LL6ge-5lCd-nPkLyQ1X6P31?usp=sharing" class="ctrl-btn">Contrôle 3</a>
+                    </div>
+                  </div>
+                </li>
+                <li>
+                  <div class="resource-link ctrl-toggle" onclick="toggleCtrl('s_bac_info')">
+                    <span><i class="fa-solid fa-file-shield text-muted"></i> Synthèses / Blanc</span>
+                    <i class="fa-solid fa-chevron-right right-icon"></i>
+                  </div>
+                  <div id="s_bac_info" class="ctrl-dropdown">
+                    <div class="ctrl-grid">
+                      <a href="https://drive.google.com/drive/folders/1unyo_uCCPfYKW73-YWBDOaIT72dE_FJj?usp=sharing" class="ctrl-btn synth-btn">Synthèse 1</a>
+                      <a href="https://drive.google.com/drive/folders/1ZThYDC9rbPL5hIaG9A0lCZpC8O3x7MpR?usp=sharing" class="ctrl-btn synth-btn">Synthèse 2</a>
+                      <a href="https://drive.google.com/drive/folders/1oBYaJuEzeZ1go81SE6heZn6Qd306jg2n?usp=sharing" class="ctrl-btn synth-btn">Bac Blanc</a>
+                    </div>
+                  </div>
+                </li>
+                <li>
+                  <a href="#" class="resource-link">
+                    <span><i class="fa-solid fa-award text-muted"></i> Annales & Séries</span>
+                    <i class="fa-solid fa-arrow-right right-icon"></i>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Bac Économie & Gestion -->
+          <div class="filiere-box">
+            <div class="filiere-header" onclick="toggleCtrl('fil_bac_eco')">
+              <span><i class="fa-solid fa-chart-line"></i> Bac Éco & Gestion</span>
+              <i class="fa-solid fa-chevron-right right-icon"></i>
+            </div>
+            <div id="fil_bac_eco" class="filiere-content">
+              <ul class="links-list">
+                <li>
+                  <div class="resource-link ctrl-toggle" onclick="toggleCtrl('c_bac_eco')">
+                    <span><i class="fa-solid fa-file-lines text-muted"></i> Contrôles (1 à 3)</span>
+                    <i class="fa-solid fa-chevron-right right-icon"></i>
+                  </div>
+                  <div id="c_bac_eco" class="ctrl-dropdown">
+                    <div class="ctrl-grid">
+                      <a href="https://drive.google.com/drive/folders/1pMa-ptkNawBFbRW3GzPNjVEb4q2iYQ_a?usp=sharing" class="ctrl-btn">Contrôle 1</a>
+                      <a href="https://drive.google.com/drive/folders/1QqdKACYoi5c39O208IRxOo45wXLR19lR?usp=sharing" class="ctrl-btn">Contrôle 2</a>
+                      <a href="https://drive.google.com/drive/folders/13Ud7djd0_jeV_8GYN5LaK9Kn1JKZexwi?usp=sharing" class="ctrl-btn">Contrôle 3</a>
+                    </div>
+                  </div>
+                </li>
+                <li>
+                  <div class="resource-link ctrl-toggle" onclick="toggleCtrl('s_bac_eco')">
+                    <span><i class="fa-solid fa-file-shield text-muted"></i> Synthèses / Blanc</span>
+                    <i class="fa-solid fa-chevron-right right-icon"></i>
+                  </div>
+                  <div id="s_bac_eco" class="ctrl-dropdown">
+                    <div class="ctrl-grid">
+                      <a href="https://drive.google.com/drive/folders/1GN8PWO9mE8bMenPp3oDXCbvvPvUcIS6s?usp=sharing" class="ctrl-btn synth-btn">Synthèse 1</a>
+                      <a href="https://drive.google.com/drive/folders/10dW4RwiGTpdN0K9pqr3__7MG_yeXRJeI?usp=sharing" class="ctrl-btn synth-btn">Synthèse 2</a>
+                      <a href="https://drive.google.com/drive/folders/1se-DTF0Q0PygSXQjKk_luR1GxnlWXwx1?usp=sharing" class="ctrl-btn synth-btn">Bac Blanc</a>
+                    </div>
+                  </div>
+                </li>
+                <li>
+                  <a href="#" class="resource-link">
+                    <span><i class="fa-solid fa-award text-muted"></i> Annales & Séries</span>
+                    <i class="fa-solid fa-arrow-right right-icon"></i>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+
+    <!-- 4. Pied de page -->
+    <footer class="quote-footer">
+      <p>« Les mathématiques ne sont pas seulement des nombres, c'est un langage pour comprendre le monde. » — <strong>Bonne réussite à tous nos élèves !</strong></p>
+    </footer>
+
+  </div>
+
+  <!-- Script d'ouverture/fermeture accordéon -->
+  <script>
+    function toggleCtrl(id) {
+      var element = document.getElementById(id);
+      var header = element.previousElementSibling;
+      element.classList.toggle('active');
+      if (header) {
+        header.classList.toggle('active');
+      }
+    }
+  </script>
+</body>
+</html>
